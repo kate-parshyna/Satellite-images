@@ -39,6 +39,8 @@ def draw_coordinates(coordinate, n, b):
                  float(round(Decimal(float(coordinate[1]) + d), 6))]
     min_point = [float(round(Decimal(float(coordinate[0]) - d), 6)),
                  float(round(Decimal(float(coordinate[1]) - d), 6))]
+    print(min_point)
+    print(max_piont)
     get_image = aerial_image(min_point[0], min_point[1], max_piont[0], max_piont[1])
     get_image.max_resolution_image(['full', 'image'], [max_piont[0], min_point[1],min_point[0], min_point[1]], d)
     X = []

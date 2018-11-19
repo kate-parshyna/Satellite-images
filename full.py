@@ -1,4 +1,5 @@
 import cv2
+import re
 import csv
 from connect import get_detect
 
@@ -12,26 +13,23 @@ def get_full(path, radius, jpg_c, filename, d):
         print(img)
 
         for i in range(0,d):
-            if img[0] == '{}'.format(i):
+            number_1 = int(re.search(r'\d+', img).group())
+            number_2 = int(re.search(r'\d+', img[2:]).group())
+            print(number_1, number_2)
+            if int(number_1) == i:
                 coordinates = get_detect(path + '/' + img)
                 size = coordinates[1]
                 radius = 0.002
                 ratio_1 = radius/max(size)
                 ratio_2 = radius/max(size)
-                print(jpg_c)
                 for c in coordinates[0]:
                     for j in range(0, d):
-                        if img[2] == '{}'.format(j):
+                       if int(number_2) == j:
                             c_1 = c[0][0] + size[0] *j   #(j - 1)
                             c_0 = c[0][1] + size[1] *(d - i - 1) #(- i + 1)
-                            # print(jpg_c[2] - c_1 * ratio_1, jpg_c[1] + c_0 * ratio_2)
                             probability = c[1]
-                            #
+                            print(probability)
                             myFile = open('output/output.csv', 'a')
-                            # with open('output/output.csv', 'a') as file:
-                            #     wr = csv.writer(file)
-                            #     wr.writerow([float('{:.6f}'.format(jpg_c[2] - c_1 * ratio_1)),
-                            #                  float('{:.6f}'.format(jpg_c[1] + c_0 * ratio_2))])
                             with myFile:
                                 myFields = ['coordinates', 'probability']
                                 writer = csv.DictWriter(myFile, fieldnames=myFields)

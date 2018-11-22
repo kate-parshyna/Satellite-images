@@ -15,7 +15,6 @@ def get_full(path, radius, jpg_c, filename, d):
         for i in range(0,d):
             number_1 = int(re.search(r'\d+', img).group())
             number_2 = int(re.search(r'\d+', img[2:]).group())
-            print(number_1, number_2)
             if int(number_1) == i:
                 coordinates = get_detect(path + '/' + img)
                 size = coordinates[1]
@@ -28,6 +27,7 @@ def get_full(path, radius, jpg_c, filename, d):
                             c_1 = c[0][0] + size[0] *j   #(j - 1)
                             c_0 = c[0][1] + size[1] *(d - i - 1) #(- i + 1)
                             probability = c[1]
+                            print(i,j)
                             print(probability)
                             myFile = open('output/output.csv', 'a')
                             with myFile:
